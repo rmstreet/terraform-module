@@ -29,7 +29,7 @@ terraform {
 }
 
 module "produto" {
-  source                  = "git@github.com:rmstreet/terraform-module.git?ref=v0.1" # VERIFICAR VERSÕES
+  source                  = "git@github.com:rmstreet/terraform-module.git?ref=v0.3" # VERIFICAR VERSÕES
   name                    = "produto"
 }
 
