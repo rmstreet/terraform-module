@@ -21,16 +21,15 @@ provider "aws" {
 }
 
 terraform {
-  backend "s3" {
-    # Lembre de trocar o bucket para o seu
-    bucket = "iaasweek-tfstates-terraform"
-    key    = "terraform-test.tfstate"
+  backend "s3" {    
+    bucket = "teste-tfstates-terraform" # TROCAR PARA SEU BUCKET
+    key    = "terraform-test.tfstate" # NOME QUE DESEJA DAR AO ARQUIVO
     region = "us-east-1"
   }
 }
 
 module "produto" {
-  source                  = "git@github.com:gomex/terraform-module?ref=v0.1"
+  source                  = "git@github.com:rmstreet/terraform-module.git?ref=v0.1" # VERIFICAR VERSÕES
   name                    = "produto"
 }
 
@@ -47,9 +46,12 @@ Crie seu arquivo **.env** a partir do exemplo **.env.example**
 | **Nome** | **Descrição** | **Tipo** | **Default** | **Requerido** |
 |------|-------------|:----:|:-----:|:-----:|
 | **name** |  Nome do projeto | string | n/a | sim |
-| **hash\_commit** | Hash commit da imagem AMI | string | n/a | não |
+| **hash\_commit** | Hash commit da imagem AMI | string | 806d52dafe9b7fddbc4f0d2d41086ed3cfa02a44 | não |
+| **enable\_sg** | Habilitar feature de criar security group | bool | false | não |
+| **ingress\_ports** | Lista de portas para liberar | list | [] | não |
+| **instance\_count** | Quantidade de instâncias a serem criadas | int | 1 | não |
 
 # ToDo
 
 - [ ] Colocar suporte a security group
-- [ ] Colocar suporte a autoscaling
+- [ ] Tirar dependência da minha AMI

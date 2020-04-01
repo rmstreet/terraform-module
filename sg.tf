@@ -2,17 +2,17 @@ data "aws_security_group" "default" {
 
   filter {
     name   = "group-name"
-    values = ["default"] 
+    values = ["default"]
   }
 
   tags = {
-    produto   = "default"
+    produto = "default"
   }
 }
 
 resource "aws_security_group" "optional" {
   count = var.enable_sg ? 1 : 0
-  name        = "allow-traffic-${var.name}"
+  name  = "allow-traffic-${var.name}"
 
   dynamic "ingress" {
     iterator = port
@@ -31,11 +31,11 @@ resource "aws_security_group" "optional" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
+
   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
