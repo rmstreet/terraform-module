@@ -3,15 +3,16 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["IaaSWeek-${var.hash_commit}"]
+    values = ["RM-Ubutun-${var.hash_commit}"] # Nome da minha AMI privada
   }
 
-  owners = ["777015859311"] # My User
+  owners = ["526664489391"] # Meu Usuário
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  count                  = var.instance_count
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
   vpc_security_group_ids = var.enable_sg ? aws_security_group.optional[*].id : [data.aws_security_group.default.id]
 
   tags = {
